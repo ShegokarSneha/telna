@@ -10,13 +10,14 @@ This Project also having Api Automation using **RestAssured** built using **Java
 
 entrata/
 ├── src/
+│ ├── main/java/
+│ │ └── com.telna.utility # Helpers like Config
 │ ├── test/java/
 │ │ ├── com.telna.pages # Page Object Model classes
 │ │ ├── com.telna.pojoclasses # Api req POJO Class
-│ │ ├── com.telna.reporting # Extent report utilities
+│ │ ├── com.telna.reporting # Extent report utilities, Assertions
 │ │ ├── com.telna.setup # Base Setup for Test
 │ │ ├── com.telna.tests # Test classes
-│ │ └── com.telna.utility # Helpers like Config, Assertions
 │ └── test/resources/
 │ ├── data/booking.json # Test data
 │ └── properties/config.properties # Configuration file

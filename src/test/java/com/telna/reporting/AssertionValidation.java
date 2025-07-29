@@ -1,6 +1,4 @@
-package com.telna.utility;
-
-import com.telna.reporting.ReportingDetails;
+package com.telna.reporting;
 
 import static org.testng.Assert.assertEquals;
 

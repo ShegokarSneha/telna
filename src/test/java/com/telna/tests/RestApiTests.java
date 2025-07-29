@@ -4,7 +4,7 @@ import com.telna.pojoclasses.BookingDates;
 import com.telna.pojoclasses.Booking;
 import com.telna.reporting.ExtentReportListener;
 import com.telna.reporting.ReportingDetails;
-import com.telna.utility.AssertionValidation;
+import com.telna.reporting.AssertionValidation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
