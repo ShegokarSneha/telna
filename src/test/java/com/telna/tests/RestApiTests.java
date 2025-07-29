@@ -1,7 +1,7 @@
 package com.telna.tests;
 
-import com.telna.pojoclass.BookingDates;
-import com.telna.pojoclass.Booking;
+import com.telna.pojoclasses.BookingDates;
+import com.telna.pojoclasses.Booking;
 import com.telna.reporting.ExtentReportListener;
 import com.telna.reporting.ReportingDetails;
 import com.telna.utility.AssertionValidation;
@@ -21,7 +21,7 @@ import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
 @Listeners(ExtentReportListener.class)
-public class RestApiTest {
+public class RestApiTests {
     static {
         RestAssured.baseURI = "https://restful-booker.herokuapp.com/";
     }

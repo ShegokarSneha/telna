@@ -1,4 +1,4 @@
-package com.telna.pojoclass;
+package com.telna.pojoclasses;
 
 import java.io.Serializable;
 

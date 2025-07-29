@@ -1,4 +1,4 @@
-package com.telna.page;
+package com.telna.pages;
 
 import com.microsoft.playwright.Page;
 

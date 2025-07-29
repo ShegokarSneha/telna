@@ -1,6 +1,6 @@
 package com.telna.tests;
 
-import com.telna.page.HomePage;
+import com.telna.pages.HomePage;
 import com.telna.reporting.ReportingDetails;
 import com.telna.setup.BaseTest;
 import com.telna.reporting.ExtentReportListener;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @Listeners(ExtentReportListener.class)
-public class ApplicationTest extends BaseTest {
+public class ApplicationTests extends BaseTest {
 
     @Test
     public void goToAdmin(){

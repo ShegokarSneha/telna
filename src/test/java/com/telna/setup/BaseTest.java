@@ -1,7 +1,7 @@
 package com.telna.setup;
 
-import com.telna.page.HomePage;
-import com.telna.page.LoginPage;
+import com.telna.pages.HomePage;
+import com.telna.pages.LoginPage;
 import com.telna.utility.ConfigProvider;
 import com.microsoft.playwright.*;
 import org.testng.Assert;
