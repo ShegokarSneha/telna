@@ -53,7 +53,7 @@ entrata/
 
 3. **Run tests**
    ```bash
-   mvn test
+   mvn clean test
 
 ---
 **Test Structure**
