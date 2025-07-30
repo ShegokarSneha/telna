@@ -4,49 +4,63 @@ import com.telna.pages.HomePage;
 import com.telna.reporting.ReportingDetails;
 import com.telna.setup.BaseTest;
 import com.telna.reporting.ExtentReportListener;
-import org.testng.Assert;
+import com.telna.utility.ConfigProvider;
+import com.telna.utility.LogMapper;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.regex.Pattern;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 @Listeners(ExtentReportListener.class)
 public class ApplicationTests extends BaseTest {
 
     @Test
     public void goToAdmin(){
-        page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
+        page.navigate(ConfigProvider.getAsString("application_url"));
         HomePage homePage = new HomePage(page);
-        Assert.assertEquals("Admin", homePage.getTabText());
-        Assert.assertTrue(page.url().contains("/admin/viewSystemUsers"), "Matching Admin url");
+        homePage.clickOnAdminTab();
+        LogMapper.info("Clicked on Admin Tab");
+        assertEquals("Admin", homePage.getActiveTabText());
+        assertTrue(page.url().contains("/admin/viewSystemUsers"), "Matching Admin url");
         assertThat(page).hasURL(Pattern.compile(".*/admin/viewSystemUsers.*"));
-        System.out.println("Admin : " + page.url());
-        ReportingDetails.captureScreenshot(page, "Admin Tab opened Successfully");
+        LogMapper.info("Admin : " + page.url());
+        LogMapper.info("Admin Tab opened Successfully");
         ReportingDetails.addStepInReport(true, "Admin URL : " +  page.url());
+        ReportingDetails.captureScreenshot(page, "Admin Tab opened Successfully");
     }
 
     @Test
     public void goToLeave(){
-        page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList");
+        page.navigate(ConfigProvider.getAsString("application_url"));
         HomePage homePage = new HomePage(page);
-        Assert.assertEquals("Leave", homePage.getTabText());
+        homePage.clickOnLeaveTab();
+        assertEquals("Leave", homePage.getActiveTabText());
+        LogMapper.info("Clicked on Leave Tab");;
+        assertTrue(page.url().contains("/leave/viewLeaveList"), "Matching Leave url");
         assertThat(page).hasURL(Pattern.compile(".*/leave/viewLeaveList.*"));
         System.out.println("Leave : " + page.url());
         ReportingDetails.captureScreenshot(page, "Leave Tab opened Successfully");
         ReportingDetails.addStepInReport(true, "Leave URL : " +  page.url());
+        LogMapper.info("Leave Tab opened Successfully");
     }
 
     @Test
     public void goToRecruitment(){
-        page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates");
+        page.navigate(ConfigProvider.getAsString("application_url"));
         HomePage homePage = new HomePage(page);
-        Assert.assertEquals("Recruitment", homePage.getTabText());
+        homePage.clickOnRecruitmentTab();
+        assertEquals("Recruitment", homePage.getActiveTabText());
+        LogMapper.info("Clicked on Recruitment Tab");
+        assertTrue(page.url().contains("/recruitment/viewCandidates"), "Matching Recruitment url");
         assertThat(page).hasURL(Pattern.compile(".*/recruitment/viewCandidates.*"));
-        System.out.println("Recruitment : " + page.url());
+        LogMapper.info("Recruitment : " + page.url());
         ReportingDetails.captureScreenshot(page,"Recruitment Tab opened Successfully");
         ReportingDetails.addStepInReport(true, "Recruitment URL : " +  page.url());
+        LogMapper.info("Recruitment Tab opened Successfully");
     }
 
 }

@@ -11,9 +11,8 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.telna.setup.BaseTest;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.ScreenshotType;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import com.telna.utility.LogMapper;
+import org.testng.*;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -59,6 +58,7 @@ public class ExtentReportListener implements ITestListener {
     // This method is called before a test method starts.
     @Override
     public void onTestStart(ITestResult result) {
+        LogMapper.info(result.getMethod().getMethodName() + "Test Started");
         ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName());
         test.set(extentTest); // Set the test for the current thread
     }
@@ -66,12 +66,14 @@ public class ExtentReportListener implements ITestListener {
     // This method is called when a test method succeeds.
     @Override
     public void onTestSuccess(ITestResult result) {
+        LogMapper.info(result.getMethod().getMethodName() + "Test Passed");
         test.get().log(Status.PASS, MarkupHelper.createLabel(result.getMethod().getMethodName() + " Test Case PASSED", ExtentColor.GREEN));
     }
 
     // This method is called when a test method fails.
     @Override
     public void onTestFailure(ITestResult result) {
+        LogMapper.info(result.getMethod().getMethodName() + "Test failed");
         test.get().log(Status.FAIL, MarkupHelper.createLabel(result.getMethod().getMethodName() + " Test Case FAILED", ExtentColor.RED));
         test.get().fail(result.getThrowable()); // Log the exception/error
         try {
@@ -112,7 +114,15 @@ public class ExtentReportListener implements ITestListener {
     // This method is called when a test method is skipped.
     @Override
     public void onTestSkipped(ITestResult result) {
-        test.get().log(Status.SKIP, MarkupHelper.createLabel(result.getMethod().getMethodName() + " Test Case SKIPPED", ExtentColor.ORANGE));
+        Class<? extends IRetryAnalyzer> retryClass =
+                result.getMethod().getRetryAnalyzerClass();
+        if (retryClass != null && !retryClass.equals(org.testng.internal.annotations.DisabledRetryAnalyzer.class)) {
+            test.get().log(Status.WARNING, MarkupHelper.createLabel(result.getMethod().getMethodName() + " Test Case RETRIED", ExtentColor.BLUE));
+            LogMapper.info(result.getMethod().getMethodName() + "Test Retried");
+        } else {
+            test.get().log(Status.SKIP, MarkupHelper.createLabel(result.getMethod().getMethodName() + " Test Case SKIPPED", ExtentColor.ORANGE));
+            LogMapper.info(result.getMethod().getMethodName() + "Test Skipped");
+        }
     }
 
     // These methods are not commonly used for basic reporting, but are part of ITestListener
@@ -126,7 +136,7 @@ public class ExtentReportListener implements ITestListener {
         onTestFailure(result); // Treat timeout as a failure
     }
 
-    public static ExtentTest getExtentTest(){
+    public static ExtentTest getExtentTest() {
         return test.get();
     }
 }
